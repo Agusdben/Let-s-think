@@ -28,7 +28,7 @@ const againButton = document.querySelector(".win__again");
 const menuButton = document.querySelector(".win__menu");
 const winTime = document.querySelector(".win__time");
 const winErrors = document.querySelector(".win__errors");
-const landscape = document.querySelector(".landscape")
+const landscape = document.querySelector(".landscape");
 const recoverData = () => {
   errors = localStorage.getItem("errors");
   finishTime = localStorage.getItem("time");
@@ -111,14 +111,14 @@ const newGame = () => {
   }, 500);
 };
 
-if(screen.availHeight < screen.availWidth){
-  landscape.style.display = 'fixed';
-};
-window.addEventListener("orientationchange", ()=> {
-  if(screen.availHeight < screen.availWidth){
-    landscape.style.display = 'none';
-  }
-  else landscape.style.display = 'fixed';
+if (screen.availHeight < screen.availWidth) {
+  landscape.style.display = "none";
+} else landscape.style.display = "fixed";
+
+window.addEventListener("orientationchange", () => {
+  if (screen.availHeight < screen.availWidth) {
+    landscape.style.display = "none";
+  } else landscape.style.display = "fixed";
 });
 recoverData();
 winModal.style.display = "none";
