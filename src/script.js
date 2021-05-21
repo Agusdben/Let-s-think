@@ -1,134 +1,147 @@
-window.onload = ()=>{
-    const recoverData = ()=>{
-        errors = localStorage.getItem('errors')
-        finishTime = localStorage.getItem('time')
-        if(errors == null && finishTime == null) {
-            errors = 0 ;
-            finishTime = 0;
-        }
-        console.log(errors, finishTime)
+let time,
+  finishTime,
+  clicks,
+  lastTwo,
+  lastTwoCovered,
+  errors,
+  winCondition,
+  canClick = true;
+
+const LOGO = [
+  "fa-react",
+  "fa-html5",
+  "fa-css3-alt",
+  "fa-python",
+  "fa-instagram-square",
+  "fa-github-square",
+  "fa-git-alt",
+  "fa-android",
+];
+const fab = document.querySelectorAll(".fab");
+const covered = document.querySelectorAll(".cards__covered");
+const winModal = document.querySelector(".win");
+const homeModal = document.querySelector(".home");
+const lastTime = document.querySelector(".home__last-time");
+const lastErrors = document.querySelector(".home__last-errors");
+const playButton = document.querySelector(".home__button");
+const againButton = document.querySelector(".win__again");
+const menuButton = document.querySelector(".win__menu");
+const winTime = document.querySelector(".win__time");
+const winErrors = document.querySelector(".win__errors");
+const landscape = document.querySelector(".landscape")
+const recoverData = () => {
+  errors = localStorage.getItem("errors");
+  finishTime = localStorage.getItem("time");
+  if (errors == null && finishTime == null) {
+    errors = 0;
+    finishTime = 0;
+  }
+};
+const saveData = () => {
+  localStorage.setItem("errors", errors);
+  localStorage.setItem("time", finishTime);
+};
+const handleCovered = (element) => {
+  if (
+    canClick == true &&
+    element.parentElement.hasOwnProperty("completed") === false
+  ) {
+    lastTwoCovered[clicks] = element;
+    element.style.backgroundColor = "transparent";
+    lastTwo[clicks] = element.parentElement.children[1].children[0];
+    clicks++;
+  }
+  if (clicks === 2) {
+    canClick = false;
+    if (lastTwo[0].className === lastTwo[1].className) {
+      lastTwo[0].parentElement.parentElement.setAttribute("completed", "");
+      lastTwo[1].parentElement.parentElement.setAttribute("completed", "");
+      winCondition++;
+      canClick = true;
+    } else {
+      errors++;
+      setTimeout(() => {
+        lastTwoCovered[0].style.backgroundColor = "#000";
+        lastTwoCovered[1].style.backgroundColor = "#000";
+        lastTwoCovered = [null, null];
+        canClick = true;
+      }, 500);
     }
-    const saveData = ()=>{
-        localStorage.setItem('errors', errors)
-        localStorage.setItem('time', finishTime)
-    }
+    clicks = 0;
+    lastTwo = [null, null];
+  }
+};
+const handleWinCondition = () => {
+  if (winCondition == 8) {
+    winModal.style.display = "flex";
+    finishTime = time;
+    winErrors.innerText = `Errors: ${errors}`;
+    winTime.innerText = `Time: ${finishTime}s`;
+    saveData();
+  }
+};
+const handleLogoStartPosition = () => {
+  let posiblePositions = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7];
+  for (let i = 0; i < fab.length; i++) {
+    let pos = Math.floor(Math.random() * posiblePositions.length);
+    let logoPos = posiblePositions[pos];
+    posiblePositions.splice(pos, 1);
+    let logo = LOGO[logoPos];
+    fab[i].classList.add(logo);
+  }
+};
+const newGame = () => {
+  covered.forEach((element) => {
+    element.parentElement.removeAttribute("completed");
+    element.style.backgroundColor = "#000";
+  });
+  fab.forEach((element) => {
+    element.className = "fab";
+  });
+  clicks = 0;
+  lastTwo = [null, null];
+  lastTwoCovered = [null, null];
+  errors = 0;
+  winCondition = 0;
+  time = 0;
+  errors = 0;
+  handleLogoStartPosition();
+  setTimeout(() => {
+    winModal.style.display = "none";
+  }, 500);
+};
+if(screen.availHeight > screen.availWidth){
+  landscape.style.display = "fixed";
+  window.addEventListener("orientationchange", ()=> {
+    landscape.style.display = "none"
+  });
+};
+recoverData();
+winModal.style.display = "none";
+lastTime.firstElementChild.innerText = `${finishTime.toString()}s`;
+lastErrors.firstElementChild.innerText = errors.toString();
 
-    const handleCovered = (element)=>{
-        lastTwoCovered[clicks] = element;
-        if(element.parentElement.hasOwnProperty('completed') === false){    
-            element.style.backgroundColor = 'transparent'
-            lastTwo[clicks] = element.parentElement.children[1].children[0]
-            clicks++;
-        }
-        if(clicks === 2 ) {
-            if(lastTwo[0].className === lastTwo[1].className) {
-                lastTwo[0].parentElement.parentElement.setAttribute('completed', '')
-                lastTwo[1].parentElement.parentElement.setAttribute('completed', '')
-                winCondition++;
-            }
-            else{
-                errors++;
-                setTimeout(() => {
-                    lastTwoCovered[0].style.backgroundColor = '#000'
-                    lastTwoCovered[1].style.backgroundColor = '#000'
-                    lastTwoCovered = [null,null]
-                }, 500)
-            }
-            clicks = 0
-            lastTwo = [null,null]
-        }
-    }
-    const handleWinCondition = ()=>{
-        if(winCondition == 8){
-            win.style.display = 'flex'
-            finishTime = time
-            const winErrors = document.querySelector('.win__errors')
-            const winTime = document.querySelector('.win__time')
-            winErrors.innerText = `Errors: ${errors}`
-            winTime.innerText = `Time: ${finishTime}s`
-            saveData()
-        }
-    }
-    const handleLogoStartPosition = ()=>{
-        const LOGO = ['fa-react', 'fa-html5', 'fa-css3-alt','fa-python', 'fa-instagram-square', 'fa-github-square', 'fa-git-alt', 'fa-android'];
-        let posiblePositions = [0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7]
-        for(let i = 0; i < fab.length; i++){
-            let pos = Math.floor(Math.random() * posiblePositions.length)
-            let logoPos = posiblePositions[pos]
-            posiblePositions.splice(pos,1)
-            let logo = LOGO[logoPos]
-            fab[i].classList.add(logo)
-        }
-    }
+covered.forEach((element) => {
+  element.addEventListener("click", () => {
+    handleCovered(element);
+    handleWinCondition();
+  });
+});
+playButton.addEventListener("click", () => {
+  homeModal.style.display = "none";
+  newGame();
+});
 
-    const go = () =>{
-        covered.forEach(element => {
-            element.parentElement.removeAttribute('completed')
-            element.style.backgroundColor = '#000'
-        });
-        fab.forEach(element => {
-            element.className = 'fab'
-        });
-        clicks = 0;
-        lastTwo = [null,null]
-        lastTwoCovered = [null,null]
-        errors = 0
-        winCondition = 0
-        handleLogoStartPosition()
-        setTimeout(() => {
-            win.style.display = 'none'
-        }, 500);
-    }
-
-    let time = 0 
-    let finishTime
-    let clicks = 0
-    let lastTwo = [null,null]
-    let lastTwoCovered = [null,null]
-    let errors = 0
-    let winCondition = 0
-    recoverData()
-
-    const fab = document.querySelectorAll('.fab')
-    handleLogoStartPosition()
-    const covered = document.querySelectorAll('.cards__covered')
-    covered.forEach(element => {
-        element.addEventListener('click', ()=>{
-            handleCovered(element)
-            handleWinCondition()
-        })
-    });
-
-    const win = document.querySelector('.win')
-    win.style.display = 'none'
-    const lastTime = document.querySelector('.home__last-time')
-    const lastErrors = document.querySelector('.home__last-errors')
-    lastTime.firstElementChild.innerText = `${finishTime.toString()}s`
-    lastErrors.firstElementChild.innerText = errors.toString()
-
-    const play = document.querySelector('.home__button')
-    const home = document.querySelector('.home')
-    play.addEventListener('click', ()=>{
-        home.style.display = 'none'
-        time = 0
-        errors = 0
-    })
-
-    setInterval(() => {
-        time++
-    }, 1000);
-
-    const again = document.querySelector('.win__again')
-    again.addEventListener('click', ()=>{
-        go()
-    })
-    const menu = document.querySelector('.win__menu')
-    menu.addEventListener('click',()=>{
-        recoverData()
-        lastTime.firstElementChild.innerText = `${finishTime.toString()}s`
-        lastErrors.firstElementChild.innerText = errors.toString()
-        win.style.display = 'none'
-        home.style.display = 'flex'
-        go()
-    })
-}
+againButton.addEventListener("click", () => {
+  newGame();
+});
+menuButton.addEventListener("click", () => {
+  recoverData();
+  lastTime.firstElementChild.innerText = `${finishTime.toString()}s`;
+  lastErrors.firstElementChild.innerText = errors.toString();
+  winModal.style.display = "none";
+  homeModal.style.display = "flex";
+});
+setInterval(() => {
+  time++;
+}, 1000);
