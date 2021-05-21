@@ -38,16 +38,21 @@ body{
 }
 
 .cards{
+    position: relative;
+    top: 50%;
+    width: fit-content;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 200px);
     grid-gap: 1em;
     margin: auto;
+    transform: translateY(50% );
 }
 .cards__container{
     position: relative;
     border-radius: 10px;
     cursor: pointer;
     height: 100px;
+    max-width: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -139,3 +144,4 @@ body{
         text-shadow: 0 5px 2px #008000;
     }
 }
+

@@ -45,7 +45,7 @@ window.onload = ()=>{
             const winErrors = document.querySelector('.win__errors')
             const winTime = document.querySelector('.win__time')
             winErrors.innerText = `Errors: ${errors}`
-            winTime.innerText = `Time: ${finishTime}`
+            winTime.innerText = `Time: ${finishTime}s`
             saveData()
         }
     }
@@ -80,11 +80,11 @@ window.onload = ()=>{
     });
 
     const win = document.querySelector('.win')
+    win.style.display = 'none'
     const lastTime = document.querySelector('.home__last-time')
     const lastErrors = document.querySelector('.home__last-errors')
     lastTime.firstElementChild.innerText = finishTime.toString()
     lastErrors.firstElementChild.innerText = `${errors.toString()}s`
-    win.style.display = 'none'
 
     const play = document.querySelector('.home__button')
     play.addEventListener('click', ()=>{
