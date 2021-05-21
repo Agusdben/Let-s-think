@@ -83,8 +83,8 @@ window.onload = ()=>{
     win.style.display = 'none'
     const lastTime = document.querySelector('.home__last-time')
     const lastErrors = document.querySelector('.home__last-errors')
-    lastTime.firstElementChild.innerText = finishTime.toString()
-    lastErrors.firstElementChild.innerText = `${errors.toString()}s`
+    lastTime.firstElementChild.innerText = `${finishTime.toString()}s`
+    lastErrors.firstElementChild.innerText = errors.toString()
 
     const play = document.querySelector('.home__button')
     play.addEventListener('click', ()=>{
