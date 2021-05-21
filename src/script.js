@@ -116,9 +116,9 @@ if(screen.availHeight < screen.availWidth){
 };
 window.addEventListener("orientationchange", ()=> {
   if(screen.availHeight < screen.availWidth){
-    landscape.style.display = 'fixed';
+    landscape.style.display = 'none';
   }
-  else landscape.style.display = 'none';
+  else landscape.style.display = 'fixed';
 });
 recoverData();
 winModal.style.display = "none";
