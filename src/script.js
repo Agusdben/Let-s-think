@@ -110,12 +110,16 @@ const newGame = () => {
     winModal.style.display = "none";
   }, 500);
 };
-if(screen.availHeight > screen.availWidth){
-  landscape.style.display = "fixed";
-  window.addEventListener("orientationchange", ()=> {
-    landscape.style.display = "none"
-  });
+
+if(screen.availHeight < screen.availWidth){
+  landscape.style.display = 'fixed';
 };
+window.addEventListener("orientationchange", ()=> {
+  if(screen.availHeight < screen.availWidth){
+    landscape.style.display = 'fixed';
+  }
+  else landscape.style.display = 'none';
+});
 recoverData();
 winModal.style.display = "none";
 lastTime.firstElementChild.innerText = `${finishTime.toString()}s`;

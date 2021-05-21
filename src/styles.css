@@ -172,6 +172,7 @@ body{
 .landscape__phone::before{
     content: "";
     position: absolute;
+    display: none;
     bottom: 0;
     left: 0;
     width: 150px;
