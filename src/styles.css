@@ -121,9 +121,10 @@ body{
 }
 
 .button{
-    width: auto;
+    width: 70px;
     text-align: center;
     padding: .5em 1em;
+    margin-bottom: 1em;
     cursor: pointer;
     background-color: #e5e5e5;
     font-weight: 900;

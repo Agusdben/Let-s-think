@@ -60,6 +60,26 @@ window.onload = ()=>{
             fab[i].classList.add(logo)
         }
     }
+
+    const go = () =>{
+        covered.forEach(element => {
+            element.parentElement.removeAttribute('completed')
+            element.style.backgroundColor = '#000'
+        });
+        fab.forEach(element => {
+            element.className = 'fab'
+        });
+        clicks = 0;
+        lastTwo = [null,null]
+        lastTwoCovered = [null,null]
+        errors = 0
+        winCondition = 0
+        handleLogoStartPosition()
+        setTimeout(() => {
+            win.style.display = 'none'
+        }, 500);
+    }
+
     let time = 0 
     let finishTime
     let clicks = 0
@@ -87,8 +107,8 @@ window.onload = ()=>{
     lastErrors.firstElementChild.innerText = errors.toString()
 
     const play = document.querySelector('.home__button')
+    const home = document.querySelector('.home')
     play.addEventListener('click', ()=>{
-        const home = document.querySelector('.home')
         home.style.display = 'none'
         time = 0
         errors = 0
@@ -98,23 +118,17 @@ window.onload = ()=>{
         time++
     }, 1000);
 
-    const again = document.querySelector('.win__button')
+    const again = document.querySelector('.win__again')
     again.addEventListener('click', ()=>{
-        covered.forEach(element => {
-            element.parentElement.removeAttribute('completed')
-            element.style.backgroundColor = '#000'
-        });
-        fab.forEach(element => {
-            element.className = 'fab'
-        });
-        clicks = 0;
-        lastTwo = [null,null]
-        lastTwoCovered = [null,null]
-        errors = 0
-        winCondition = 0
-        handleLogoStartPosition()
-        setTimeout(() => {
-            win.style.display = 'none'
-        }, 500);
+        go()
+    })
+    const menu = document.querySelector('.win__menu')
+    menu.addEventListener('click',()=>{
+        recoverData()
+        lastTime.firstElementChild.innerText = `${finishTime.toString()}s`
+        lastErrors.firstElementChild.innerText = errors.toString()
+        win.style.display = 'none'
+        home.style.display = 'flex'
+        go()
     })
 }
