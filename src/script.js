@@ -113,12 +113,12 @@ const newGame = () => {
 
 if (screen.availHeight < screen.availWidth) {
   landscape.style.display = "none";
-} else landscape.style.display = "fixed";
+} else landscape.style.display = "block";
 
 window.addEventListener("orientationchange", () => {
   if (screen.availHeight < screen.availWidth) {
     landscape.style.display = "none";
-  } else landscape.style.display = "fixed";
+  } else landscape.style.display = "block";
 });
 recoverData();
 winModal.style.display = "none";
