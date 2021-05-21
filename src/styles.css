@@ -73,8 +73,14 @@ body{
     border-radius: inherit;
     z-index: 20;
     background-color: #000;
-    transition: background-color 1s ease;
+    transition: background-color  1s ease;
+    transition: transform .3s ease;
 }
+
+.cards__covered:hover{
+    transform: scale(1.02);
+}
+
 .fab{
     color: #fff;
     font-size: 5em;
