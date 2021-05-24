@@ -56,8 +56,8 @@ const handleCovered = (element) => {
     if (lastTwo[0].className === lastTwo[1].className) {
       lastTwo[0].parentElement.parentElement.setAttribute("completed", "");
       lastTwo[1].parentElement.parentElement.setAttribute("completed", "");
-      winCondition++;
       canClick = true;
+      winCondition++;
     } else {
       errors++;
       setTimeout(() => {
@@ -71,7 +71,7 @@ const handleCovered = (element) => {
     lastTwo = [null, null];
   }
 };
-const handleWinCondition = () => {
+const handleWinCondition = (element) => {
   if (winCondition == 8) {
     winModal.style.display = "flex";
     finishTime = time;
@@ -128,7 +128,7 @@ lastErrors.firstElementChild.innerText = errors.toString();
 covered.forEach((element) => {
   element.addEventListener("click", () => {
     handleCovered(element);
-    handleWinCondition();
+    handleWinCondition(element);
   });
 });
 playButton.addEventListener("click", () => {

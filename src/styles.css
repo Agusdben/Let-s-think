@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 body{
     box-sizing: border-box;
-    background-color: #800000;
+    background-color: #f00;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -42,7 +42,7 @@ body{
     position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 2em;
+    grid-gap: 1em;
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -51,7 +51,7 @@ body{
     position: relative;
     border-radius: 10px;
     cursor: pointer;
-    height: 100px;
+    height: 20vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,7 +81,7 @@ body{
 
 .fab{
     color: #fff;
-    font-size: 5em;
+    font-size: 3em;
     text-align: center;
 }
 
@@ -205,6 +205,9 @@ body{
 }
 
 @media screen and (min-width: 768px) {
+    .cards{
+        height: 100px;
+    }
     
 }
 
@@ -221,5 +224,8 @@ body{
     .button{
         font-size: 2em;
         width: 130px;
+    }
+    .fab{
+        font-size: 6em;
     }
 }
